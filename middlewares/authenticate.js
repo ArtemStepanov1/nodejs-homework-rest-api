@@ -9,6 +9,9 @@ const authenticate = async (req, res, next) => {
   if (bearer !== 'Bearer') {
     next(createError(401, 'Unauthorized'));
   }
+  if (!token) {
+    next(createError(401, 'Unauthorized'));
+  }
   try {
     const verifiedToken = jwt.verify(token, SECRET_KEY);
     const user = await User.findById(verifiedToken._id);
