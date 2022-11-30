@@ -16,6 +16,10 @@ router.get('/current', authenticate, ctrl.getCurrent);
 
 router.patch('/avatars', authenticate, upload.single('avatar'), ctrl.updateAvatar);
 
+router.get('/verify/:verificationToken', ctrl.verifyEmail);
+
+router.post('/verify', validationBody(schemas.verifyEmailSchema), ctrl.resendVerifyEmail);
+
 router.get('/logout', authenticate, ctrl.logout);
 
 module.exports = router;
